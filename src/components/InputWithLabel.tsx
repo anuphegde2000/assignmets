@@ -1,5 +1,5 @@
 import { count } from "console";
-import React from "react";
+import React, { FormEvent } from "react";
 import "./InputWithLabel.css";
 
 type InputWithLabelProps = {
@@ -8,6 +8,7 @@ type InputWithLabelProps = {
   searchText: string;
   type?: string;
   id: string;
+  onSearchSubmit: (e: FormEvent<HTMLFormElement>) => void;
 };
 
 const InputWithLabel = ({
@@ -15,12 +16,15 @@ const InputWithLabel = ({
   onChange,
   searchText,
   type = "text",
-  id,
+  id,  onSearchSubmit,
 }: InputWithLabelProps) => {
   return (
     <div>
-      <label htmlFor={id}>{children} </label>
-      <input value={searchText} id={id} type={type} onChange={onChange} />
+      <form onSubmit={onSearchSubmit}>
+        <label htmlFor={id}>{children} </label>
+        <input value={searchText} id={id} type={type} onChange={onChange} />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 };
