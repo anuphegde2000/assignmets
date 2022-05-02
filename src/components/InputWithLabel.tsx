@@ -1,5 +1,5 @@
 import { count } from "console";
-import React, { FormEvent } from "react";
+import React, { useState } from "react";
 import "./InputWithLabel.css";
 
 type InputWithLabelProps = {
@@ -8,7 +8,6 @@ type InputWithLabelProps = {
   searchText: string;
   type?: string;
   id: string;
-  onSearchSubmit: (e: FormEvent<HTMLFormElement>) => void;
 };
 
 const InputWithLabel = ({
@@ -16,15 +15,16 @@ const InputWithLabel = ({
   onChange,
   searchText,
   type = "text",
-  id,  onSearchSubmit,
+  id,
 }: InputWithLabelProps) => {
+  const [count, setCount] = useState(() => {
+    console.log("Init state for input with label");
+    return 0;
+  });
   return (
     <div>
-      <form onSubmit={onSearchSubmit}>
-        <label htmlFor={id}>{children} </label>
-        <input value={searchText} id={id} type={type} onChange={onChange} />
-        <button type="submit">Submit</button>
-      </form>
+      <label htmlFor={id}>{children} </label>
+      <input value={searchText} id={id} type={type} onChange={onChange} />
     </div>
   );
 };
